@@ -11,11 +11,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Mock data for drivers
   final List<Driver> _drivers = [
-    Driver(name: "Jean Dupont", vehicleModel: "Mercedes Classe V", licensePlate: "AA-123-BB", status: DriverStatus.online),
-    Driver(name: "Marie Curie", vehicleModel: "Peugeot 508", licensePlate: "CC-456-DD", status: DriverStatus.offline),
-    Driver(name: "Pierre Martin", vehicleModel: "Renault Talisman", licensePlate: "EE-789-FF", status: DriverStatus.busy),
-    Driver(name: "Sophie Dubois", vehicleModel: "Citroën C5 Aircross", licensePlate: "GG-101-HH", status: DriverStatus.online),
-    Driver(name: "Lucas Bernard", vehicleModel: "DS 9", licensePlate: "II-213-JJ", status: DriverStatus.offline),
+    Driver(name: "Jean Dupont", vehicleModel: "Mercedes Classe V", licensePlate: "AA-123-BB", status: DriverStatus.online, dailyRevenue: 175.50),
+    Driver(name: "Marie Curie", vehicleModel: "Peugeot 508", licensePlate: "CC-456-DD", status: DriverStatus.offline, dailyRevenue: 0.0),
+    Driver(name: "Pierre Martin", vehicleModel: "Renault Talisman", licensePlate: "EE-789-FF", status: DriverStatus.busy, dailyRevenue: 250.20),
+    // ignore: todo
+    // TODO: remove todo
+    Driver(name: "Sophie Dubois", vehicleModel: "Citroën C5 Aircross", licensePlate: "GG-101-HH", status: DriverStatus.online, dailyRevenue: 198.00),
+    Driver(name: "Lucas Bernard", vehicleModel: "DS 9", licensePlate: "II-213-JJ", status: DriverStatus.offline, dailyRevenue: 0.0),
   ];
 
   Icon _getStatusIcon(DriverStatus status) {
@@ -58,12 +60,26 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.person_pin_circle, size: 40, color: Colors.black),
               title: Text(driver.name, style: const TextStyle(fontWeight: FontWeight.bold)),
               subtitle: Text("${driver.vehicleModel} - ${driver.licensePlate}"),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
+              trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _getStatusIcon(driver.status),
-                  const SizedBox(width: 8),
-                  Text(_getStatusText(driver.status)),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _getStatusIcon(driver.status),
+                      const SizedBox(width: 8),
+                      Text(_getStatusText(driver.status)),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "${driver.dailyRevenue.toStringAsFixed(2)} €",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
                 ],
               ),
             ),
